@@ -7,9 +7,11 @@
   <meta name="description" content="Fun Decode the Sentence Puzzle Game" />
   <title>Decode the Sentence Puzzle</title>
   <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+
+  <!-- Load AdSense once -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5158994576624872"
     crossorigin="anonymous"></script>
-  <!-- Layout styling for ads and game content -->
+
   <style>
     body {
       margin: 0;
@@ -18,22 +20,22 @@
       background: #f7f7f7;
     }
 
-    /* Container for your React app */
+    /* React App Container */
     #root {
-      margin: 0 220px;
-      /* space so ads don’t overlap */
+      margin: 0 160px;
+      /* room for the smaller ads */
       max-width: 900px;
       width: 100%;
     }
 
-    /* Left + right side ads */
+    /* Left + Right Ads */
     #left-ad,
     #right-ad {
       position: fixed;
       top: 50%;
       transform: translateY(-50%);
-      width: 160px;
-      height: 600px;
+      width: 120px;
+      height: 240px;
       z-index: 999;
     }
 
@@ -45,7 +47,7 @@
       right: 10px;
     }
 
-    /* Bottom sticky ad */
+    /* Bottom banner */
     #bottom-ad {
       position: fixed;
       bottom: 0;
@@ -53,7 +55,7 @@
       width: 100%;
       text-align: center;
       background: white;
-      padding: 5px 0;
+      padding: 6px 0;
       z-index: 999;
       border-top: 1px solid #ddd;
     }
@@ -62,32 +64,28 @@
 
 <body>
 
-  <!-- Left side ad -->
+  <!-- Left Ad (smaller) -->
   <div id="left-ad">
-    <ins class="adsbygoogle" style="display:block;width:160px;height:600px" data-ad-client="ca-pub-5158994576624872"
-      data-ad-slot="8558759286" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <ins class="adsbygoogle" style="display:inline-block;width:120px;height:240px"
+      data-ad-client="ca-pub-5158994576624872" data-ad-slot="8558759286"></ins>
   </div>
 
-  <!-- Right side ad -->
+  <!-- Right Ad (smaller) -->
   <div id="right-ad">
-    <ins class="adsbygoogle" style="display:block;width:160px;height:600px" data-ad-client="ca-pub-5158994576624872"
-      data-ad-slot="6081711709" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <ins class="adsbygoogle" style="display:inline-block;width:120px;height:240px"
+      data-ad-client="ca-pub-5158994576624872" data-ad-slot="6081711709"></ins>
   </div>
 
-  <!-- Main React app -->
+  <!-- Root React App -->
   <div id="root"></div>
 
-  <!-- Bottom banner ad -->
+  <!-- Bottom Banner Ad -->
   <div id="bottom-ad">
     <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5158994576624872" data-ad-slot="2568066009"
       data-ad-format="auto" data-full-width-responsive="true"></ins>
   </div>
 
-  <!-- Load AdSense script ONCE only -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5158994576624872"
-    crossorigin="anonymous"></script>
-
-  <!-- Push all ads -->
+  <!-- Push all ads for rendering -->
   <script>
     (adsbygoogle = window.adsbygoogle || []).push({});
     (adsbygoogle = window.adsbygoogle || []).push({});
