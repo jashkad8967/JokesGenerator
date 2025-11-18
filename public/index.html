@@ -13,59 +13,65 @@
     crossorigin="anonymous"></script>
 
   <style>
+    /* Full-page React app */
+    html,
     body {
       margin: 0;
+      padding: 0;
+      height: 100%;
       background: #f7f7f7;
-      display: flex;
-      justify-content: center;
     }
 
-    /* React App Container */
     #root {
-      max-width: 900px;
       width: 100%;
-      padding: 0 20px;
-      /* smaller padding instead of huge margins */
+      min-height: 100vh;
       box-sizing: border-box;
     }
 
-    /* Left + Right Ads */
+    /* Left + Right Ads overlay (smaller, with margin from edges) */
     #left-ad,
     #right-ad {
       position: fixed;
       top: 50%;
       transform: translateY(-50%);
-      width: 120px;
-      height: 240px;
+      width: 80px;
+      /* smaller width */
+      height: 180px;
+      /* smaller height */
       z-index: 999;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
     }
 
     #left-ad {
-      left: 10px;
+      left: 20px;
+      /* margin from left edge */
     }
 
     #right-ad {
-      right: 10px;
+      right: 20px;
+      /* margin from right edge */
     }
 
-    /* Bottom banner */
+    /* Bottom banner overlay (smaller, centered with margins) */
     #bottom-ad {
       position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
+      bottom: 20px;
+      /* margin from bottom edge */
+      left: 50%;
+      transform: translateX(-50%);
+      width: 300px;
+      /* smaller width */
       text-align: center;
-      background: white;
-      padding: 6px 0;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 4px 0;
       z-index: 999;
-      border-top: 1px solid #ddd;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
     }
 
     /* Responsive: hide side ads on smaller screens */
     @media (max-width: 1024px) {
-      #root {
-        padding: 0 10px;
-      }
 
       #left-ad,
       #right-ad {
@@ -73,6 +79,7 @@
       }
     }
   </style>
+
 </head>
 
 <body>
