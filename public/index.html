@@ -7,22 +7,92 @@
   <meta name="description" content="Fun Decode the Sentence Puzzle Game" />
   <title>Decode the Sentence Puzzle</title>
   <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5158994576624872"
-    crossorigin="anonymous"></script>
 
+  <!-- Layout styling for ads and game content -->
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      background: #f7f7f7;
+    }
+
+    /* Container for your React app */
+    #root {
+      margin: 0 220px;
+      /* space so ads don’t overlap */
+      max-width: 900px;
+      width: 100%;
+    }
+
+    /* Left + right side ads */
+    #left-ad,
+    #right-ad {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 160px;
+      height: 600px;
+      z-index: 999;
+    }
+
+    #left-ad {
+      left: 10px;
+    }
+
+    #right-ad {
+      right: 10px;
+    }
+
+    /* Bottom sticky ad */
+    #bottom-ad {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      background: white;
+      padding: 5px 0;
+      z-index: 999;
+      border-top: 1px solid #ddd;
+    }
+  </style>
 </head>
 
 <body>
+
+  <!-- Left side ad -->
+  <div id="left-ad">
+    <ins class="adsbygoogle" style="display:block;width:160px;height:600px" data-ad-client="ca-pub-5158994576624872"
+      data-ad-slot="8558759286" data-ad-format="auto" data-full-width-responsive="true"></ins>
+  </div>
+
+  <!-- Right side ad -->
+  <div id="right-ad">
+    <ins class="adsbygoogle" style="display:block;width:160px;height:600px" data-ad-client="ca-pub-5158994576624872"
+      data-ad-slot="6081711709" data-ad-format="auto" data-full-width-responsive="true"></ins>
+  </div>
+
+  <!-- Main React app -->
   <div id="root"></div>
-  <!-- AdSense will go here later -->
+
+  <!-- Bottom banner ad -->
+  <div id="bottom-ad">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5158994576624872" data-ad-slot="2568066009"
+      data-ad-format="auto" data-full-width-responsive="true"></ins>
+  </div>
+
+  <!-- Load AdSense script ONCE only -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5158994576624872"
     crossorigin="anonymous"></script>
-  <!-- Bottom -->
-  <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5158994576624872" data-ad-slot="2568066009"
-    data-ad-format="auto" data-full-width-responsive="true"></ins>
+
+  <!-- Push all ads -->
   <script>
     (adsbygoogle = window.adsbygoogle || []).push({});
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    (adsbygoogle = window.adsbygoogle || []).push({});
   </script>
+
 </body>
 
 </html>
