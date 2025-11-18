@@ -8,7 +8,7 @@
   <title>Decode the Sentence Puzzle</title>
   <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
 
-  <!-- Load AdSense once -->
+  <!-- Load AdSense once for Auto Ads -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5158994576624872"
     crossorigin="anonymous"></script>
 
@@ -28,17 +28,16 @@
       box-sizing: border-box;
     }
 
-    /* Left + Right Ads overlay (smaller, with margin from edges) */
+    /* Left + Right Ads overlay (240x480 with margins) */
     #left-ad,
     #right-ad {
       position: fixed;
       top: 50%;
       transform: translateY(-50%);
-      width: 80px;
-      /* smaller width */
-      height: 180px;
-      /* smaller height */
       z-index: 999;
+      background: #fff;
+      padding: 10px;
+      /* small inner margin */
       border-radius: 8px;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
     }
@@ -53,47 +52,63 @@
       /* margin from right edge */
     }
 
-    /* Bottom banner overlay (smaller, centered with margins) */
+    /* Bottom banner overlay (728x90) */
     #bottom-ad {
       position: fixed;
       bottom: 20px;
       /* margin from bottom edge */
       left: 50%;
       transform: translateX(-50%);
-      width: 300px;
-      /* smaller width */
+      width: 728px;
+      height: 90px;
       text-align: center;
       background: rgba(255, 255, 255, 0.95);
-      padding: 4px 0;
+      padding: 5px;
       z-index: 999;
       border-radius: 6px;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
     }
 
     /* Responsive: hide side ads on smaller screens */
-    @media (max-width: 1024px) {
+    @media (max-width: 1280px) {
 
       #left-ad,
       #right-ad {
         display: none;
       }
+
+      #bottom-ad {
+        width: 90%;
+        /* scale down bottom banner on smaller screens */
+      }
     }
   </style>
-
 </head>
 
 <body>
 
   <!-- Left Ad -->
   <div id="left-ad">
-    <ins class="adsbygoogle" style="display:inline-block;width:120px;height:240px"
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5158994576624872"
+      crossorigin="anonymous"></script>
+    <!-- Leftside -->
+    <ins class="adsbygoogle" style="display:inline-block;width:240px;height:480px"
       data-ad-client="ca-pub-5158994576624872" data-ad-slot="8558759286"></ins>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
   </div>
 
   <!-- Right Ad -->
   <div id="right-ad">
-    <ins class="adsbygoogle" style="display:inline-block;width:120px;height:240px"
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5158994576624872"
+      crossorigin="anonymous"></script>
+    <!-- Rightside -->
+    <ins class="adsbygoogle" style="display:inline-block;width:240px;height:480px"
       data-ad-client="ca-pub-5158994576624872" data-ad-slot="6081711709"></ins>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
   </div>
 
   <!-- Root React App -->
@@ -101,16 +116,15 @@
 
   <!-- Bottom Banner Ad -->
   <div id="bottom-ad">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5158994576624872"
+      crossorigin="anonymous"></script>
+    <!-- Bottom -->
     <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5158994576624872" data-ad-slot="2568066009"
       data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
   </div>
-
-  <!-- Push all ads -->
-  <script>
-    (adsbygoogle = window.adsbygoogle || []).push({});
-    (adsbygoogle = window.adsbygoogle || []).push({});
-    (adsbygoogle = window.adsbygoogle || []).push({});
-  </script>
 
 </body>
 
