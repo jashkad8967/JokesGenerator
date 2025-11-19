@@ -58,22 +58,35 @@ export const getAllUsersData = () => {
   try {
     const allUsers = [];
     const profiles = getAllProfiles();
+    const usernameMap = new Map(); // Track usernames to prevent duplicates
     
     // Get data for all registered users
     profiles.forEach((profile) => {
       const userData = getUserData(profile.email);
       if (userData.points > 0) {
-        allUsers.push({
+        const username = profile.username || profile.email.split("@")[0];
+        const userEntry = {
           email: profile.email,
-          name: profile.username || profile.email.split("@")[0], // Use username if available, else email prefix
+          name: username,
           points: userData.points,
           streak: userData.streak,
-        });
+        };
+        
+        // If username already exists, keep the one with higher points
+        if (usernameMap.has(username.toLowerCase())) {
+          const existing = usernameMap.get(username.toLowerCase());
+          if (userEntry.points > existing.points) {
+            usernameMap.set(username.toLowerCase(), userEntry);
+          }
+        } else {
+          usernameMap.set(username.toLowerCase(), userEntry);
+        }
       }
     });
     
-    // Sort by points descending
-    return allUsers.sort((a, b) => b.points - a.points);
+    // Convert map to array and sort by points descending
+    const uniqueUsers = Array.from(usernameMap.values());
+    return uniqueUsers.sort((a, b) => b.points - a.points);
   } catch {
     return [];
   }

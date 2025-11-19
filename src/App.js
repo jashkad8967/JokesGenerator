@@ -86,6 +86,7 @@ function App() {
   const [communitySort, setCommunitySort] = useState("latest"); // "latest" or "popular"
   const [likesUpdate, setLikesUpdate] = useState(0); // Force re-render when likes change
   const [menuOpen, setMenuOpen] = useState(false); // Burger menu state
+  const [leaderboardSearch, setLeaderboardSearch] = useState(""); // Leaderboard search query
   const menuRef = useRef(null);
 
   // Close menu when clicking outside
@@ -1032,12 +1033,33 @@ function App() {
 
     const allUsers = getAllUsersData();
     const currentAccountId = getAccountId(profile);
-    const leaderboardData = allUsers.map((user, idx) => ({
-      rank: idx + 1,
+    
+    // First, map all users with their original ranks
+    const allUsersWithRanks = allUsers.map((user, idx) => ({
+      ...user,
+      originalRank: idx + 1,
       name: user.email === currentAccountId ? "You" : user.name,
+      isCurrentUser: user.email === currentAccountId,
+    }));
+    
+    // Filter by search query (preserving original ranks)
+    const filteredUsers = leaderboardSearch.trim() === "" 
+      ? allUsersWithRanks 
+      : allUsersWithRanks.filter(user => {
+          const searchLower = leaderboardSearch.toLowerCase();
+          return user.name.toLowerCase().includes(searchLower) || 
+                 user.email.toLowerCase().includes(searchLower);
+        });
+    
+    // Limit to top 10 (but keep original ranks)
+    const limitedUsers = filteredUsers.slice(0, 10);
+    
+    const leaderboardData = limitedUsers.map((user) => ({
+      rank: user.originalRank, // Use original rank, not position in filtered list
+      name: user.name,
       points: user.points,
       streak: user.streak,
-      isCurrentUser: user.email === currentAccountId,
+      isCurrentUser: user.isCurrentUser,
     }));
 
     return (
@@ -1072,10 +1094,36 @@ function App() {
           <div style={{ textAlign: "left" }}>
             <p style={{ fontSize: "13px", letterSpacing: "0.2em", textTransform: "uppercase", color: textColorSecondary }}>Leaderboard</p>
             <h2 style={{ fontSize: "30px", margin: "10px 0", color: textColor }}>Top Performers</h2>
-            <div style={{ marginTop: "20px" }}>
+            
+            {/* Search input */}
+            <div style={{ marginTop: "20px", marginBottom: "16px", paddingRight: "8px" }}>
+              <input
+                type="text"
+                placeholder="Search by name or email..."
+                value={leaderboardSearch}
+                onChange={(e) => setLeaderboardSearch(e.target.value)}
+                style={{
+                  ...getInputStyle(theme),
+                  width: "100%",
+                  padding: "10px 16px",
+                  fontSize: "14px",
+                }}
+              />
+            </div>
+            
+            {/* Scrollable leaderboard */}
+            <div style={{ 
+              marginTop: "12px",
+              maxHeight: "400px",
+              overflowY: "auto",
+              overflowX: "hidden",
+              paddingRight: "8px",
+            }}>
               {leaderboardData.length === 0 ? (
-                <p style={{ color: textColorSecondary, marginTop: "20px" }}>
-                  No users on the leaderboard yet. Be the first!
+                <p style={{ color: textColorSecondary, marginTop: "20px", textAlign: "center" }}>
+                  {leaderboardSearch.trim() === "" 
+                    ? "No users on the leaderboard yet. Be the first!"
+                    : "No users found matching your search."}
                 </p>
               ) : (
                 leaderboardData.map((entry, idx) => (
@@ -1112,6 +1160,11 @@ function App() {
                 ))
               )}
             </div>
+            {leaderboardData.length === 10 && leaderboardSearch.trim() === "" && (
+              <p style={{ fontSize: "12px", color: textColorSecondary, marginTop: "12px", textAlign: "center" }}>
+                Showing top 10 performers
+              </p>
+            )}
           </div>
         </CardFrame>
 

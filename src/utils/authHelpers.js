@@ -108,11 +108,33 @@ export const register = (email, password, isoBirthday) => {
     throw new Error("An account with this email already exists. Please sign in.");
   }
 
+  // Check if default username is already taken
+  const defaultUsername = email.split("@")[0];
+  const existingUsernameProfile = getProfileByUsername(defaultUsername);
+  if (existingUsernameProfile) {
+    // If username is taken, append a number
+    let newUsername = defaultUsername;
+    let counter = 1;
+    while (getProfileByUsername(newUsername)) {
+      newUsername = `${defaultUsername}${counter}`;
+      counter++;
+    }
+    const newProfile = { 
+      email, 
+      password, 
+      birthday: isoBirthday,
+      username: newUsername,
+      theme: "dark", // Default theme
+    };
+    saveProfile(newProfile);
+    return newProfile;
+  }
+
   const newProfile = { 
     email, 
     password, 
     birthday: isoBirthday,
-    username: email.split("@")[0], // Default username from email
+    username: defaultUsername, // Default username from email
     theme: "dark", // Default theme
   };
   saveProfile(newProfile);
@@ -157,6 +179,14 @@ export const updateProfile = (email, updates) => {
   const profile = getProfileByEmail(email);
   if (!profile) {
     throw new Error("Profile not found.");
+  }
+
+  // Check for duplicate username if username is being updated
+  if (updates.username) {
+    const existingProfile = getProfileByUsername(updates.username);
+    if (existingProfile && existingProfile.email !== email) {
+      throw new Error("This username is already taken. Please choose another.");
+    }
   }
 
   const updatedProfile = { ...profile, ...updates };
